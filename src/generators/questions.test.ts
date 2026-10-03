@@ -1,0 +1,2 @@
+import {test} from 'node:test';import assert from 'node:assert/strict';import {generateWorksheet} from './questions';
+for(const level of ['1','2','3','4'])for(const mode of ['addition','subtraction','mixed'] as const)test(`${level} ${mode}: valid unique 50-question worksheets`,()=>{for(let run=0;run<20;run++){const q=generateWorksheet(level,50,mode);assert.equal(q.length,50);assert.equal(new Set(q.map(q=>`${q.skill}:${q.a}:${q.b}`)).size,50);for(const item of q){assert.equal(item.answer,item.skill==='addition'?item.a+item.b:item.a-item.b);assert.ok(item.answer>=0);}}});
